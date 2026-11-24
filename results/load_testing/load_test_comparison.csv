@@ -1,0 +1,4 @@
+Users,Total Requests,Failed Requests,Average Response Time (ms),P95 Response Time (ms),Requests per Second
+5,892,0,39.96,110,2.4
+10,699,0,39.22,120,4.95
+20,2177,0,53.75,150,9.67

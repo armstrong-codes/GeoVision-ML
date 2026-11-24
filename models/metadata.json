@@ -1,0 +1,22 @@
+{
+    "project": "GeoVision ML",
+    "image_classes": [
+        "Annual Crop",
+        "Forest",
+        "Herbaceous Vegetation",
+        "Highway",
+        "Industrial Buildings",
+        "Pasture",
+        "Permanent Crop",
+        "Residential Buildings",
+        "River",
+        "SeaLake"
+    ],
+    "number_of_classes": 10,
+    "cnn_image_size": 64,
+    "mobilenet_image_size": 96,
+    "models": [
+        "cnn",
+        "mobilenet"
+    ]
+}
