@@ -27,3 +27,15 @@ Thumbs.db
 # Temporary files
 *.log
 *.tmp
+
+# Git backup
+.git-backup/
+GeoVision-ML-git-backup/
+
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# Runtime logs
+results/prediction_logs.jsonl
