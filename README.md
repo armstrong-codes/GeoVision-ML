@@ -136,7 +136,7 @@ The project is being deployed using Microsoft Azure Container Apps, with Docker 
 - **API:** https://geovision-api.politesky-a35ce14a.southafricanorth.azurecontainerapps.io
 - **Dashboard:** https://geovision-dashboard.politesky-a35ce14a.southafricanorth.azurecontainerapps.io
 - **API documentation:** https://geovision-api.politesky-a35ce14a.southafricanorth.azurecontainerapps.io/docs?utm_source=chatgpt.com#/default/get_retraining_status_retrain_status_get
-**Demo video:** ADD VIDEO LINK
+- **Demo video:** https://youtu.be/l2e_nncmaNI
 
 ## 10. Conclusion
 
