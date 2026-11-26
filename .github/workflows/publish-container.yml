@@ -41,3 +41,12 @@ jobs:
           tags: |
             ghcr.io/${{ env.IMAGE_NAME }}:latest
             ghcr.io/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+
+      - name: Build and publish dashboard image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile.dashboard
+          push: true
+          tags: ghcr.io/${{ github.repository }}-dashboard:latest
