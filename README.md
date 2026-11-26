@@ -1,53 +1,143 @@
-## Load Testing and Performance Evaluation
+# GeoVision ML
+### Satellite Image Classification Using Deep Learning
 
-### Testing Environment
+## 1. About the Project
 
-Load testing was performed using **Locust** to simulate multiple users accessing the GeoVision ML API.
+GeoVision ML is a machine learning project that classifies satellite images into different land-use categories. It uses the EuroSAT RGB dataset, which contains 27,000 satellite images across 10 classes.
 
-The API was deployed using Docker Compose, with Nginx acting as a reverse proxy and distributing requests across API containers.
+The goal of this project is to build a complete application where users can upload satellite images, get predictions, and view model performance through a simple dashboard.
 
-The experiments used the following configuration:
+## 2. Technologies Used
 
-- Load testing tool: Locust
-- Concurrent users: 10
-- User spawn rate: 2 users per second
-- Test duration: 2 minutes
-- API endpoints: `/health` and `/predict`
-- Container configurations: 1, 2, and 3 API containers
+- Python – Main programming language
+- TensorFlow/Keras – Building and training models
+- Pandas and NumPy – Data processing
+- Scikit-learn – Model evaluation
+- FastAPI – Backend API
+- Streamlit – User dashboard
+- Docker – Running the application in containers
+- Locust – Testing API performance
+- Microsoft Azure – Cloud deployment
 
-### Performance Results
+## 3. Machine Learning Models
 
-| Metric | 1 Container | 2 Containers | 3 Containers |
-|---|---:|---:|---:|
-| Total Requests | 572 | 576 | 574 |
-| Failed Requests | 0 | 0 | 0 |
-| Average Response Time | 59 ms | 41 ms | 84 ms |
-| P95 Response Time | 170 ms | 110 ms | 230 ms |
-| Throughput | 4.78 req/s | 4.82 req/s | 4.81 req/s |
+Two models were developed and compared:
 
-### Performance Analysis
+- **Custom CNN:** A convolutional neural network built for classifying satellite images.
+- **MobileNetV2:** A pre-trained model adapted for satellite image classification.
 
-All three configurations completed their tests without failed requests.
+Both models are evaluated using accuracy, precision, recall, F1-score, and a confusion matrix.
 
-The two-container configuration achieved the lowest average response time of 41 ms and the lowest P95 response time of 110 ms.
+## 4. Dataset Classes
 
-Increasing the number of API containers to three did not improve performance in this experiment. The average response time increased to 84 ms.
+The EuroSAT dataset contains 10 categories:
 
-Throughput remained almost unchanged across all three configurations, at approximately 4.8 requests per second.
+1. AnnualCrop
+2. Forest
+3. HerbaceousVegetation
+4. Highway
+5. Industrial
+6. Pasture
+7. PermanentCrop
+8. Residential
+9. River
+10. SeaLake
 
-These results suggest that increasing the number of containers does not automatically improve performance. Available CPU and memory resources, model inference workloads, and container overhead can influence the results.
+## 5. Project Structure
 
-### Conclusion
+```text
+GeoVision-ML/
+├── api/
+├── dashboard/
+├── data/
+├── models/
+├── notebook/
+├── src/
+├── monitoring/
+├── locust/
+├── results/
+├── Dockerfile
+├── docker-compose.yml
+├── requirements.txt
+└── README.md
+```
 
-The two-container configuration provided the best response-time results in the initial experiments. Further repeated testing is necessary to determine whether this improvement is consistent.
+## 6. Running the Project Locally
 
-### Test Evidence
+First, clone the repository:
 
-Performance graphs and Locust output files are stored in:
+```bash
+git clone https://github.com/armstrong-codes/GeoVision-ML.git
+cd GeoVision-ML
+```
 
-`results/load_testing/`
+Create and activate a virtual environment:
 
-- `replica_comparison.csv`
-- `average_response_time.png`
-- `p95_response_time.png`
-- `throughput.png`
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Install the dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the API:
+
+```bash
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8000
+```
+
+Start the dashboard in another terminal:
+
+```bash
+python -m streamlit run dashboard/app.py --server.port 8501
+```
+
+Open the application:
+
+- Dashboard: `http://localhost:8501`
+- API documentation: `http://localhost:8000/docs`
+
+## 7. Application Features
+
+The dashboard provides:
+
+- An overview of the application.
+- Satellite image upload and prediction.
+- Uploading additional training data.
+- Model retraining.
+- Model performance information.
+
+The FastAPI backend handles predictions and other application requests.
+
+## 8. Load Testing
+
+Locust was used to test how the API performs with different numbers of containers.
+
+The tests used 10 users, a spawn rate of 2 users per second, and a duration of 2 minutes.
+
+| API containers | Requests | Failures | Average response time | P95 |
+|---:|---:|---:|---:|---:|
+| 1 | 572 | 0 | 59 ms | 170 ms |
+| 2 | 576 | 0 | 41 ms | 110 ms |
+| 3 | 574 | 0 | 84 ms | 230 ms |
+
+The two-container setup performed best in these tests, with the lowest average and P95 response times. Increasing the number of containers did not significantly improve throughput.
+
+Load-testing results and comparison graphs are stored in `results/load_testing/`.
+
+## 9. Cloud Deployment
+
+The project is being deployed using Microsoft Azure Container Apps, with Docker images stored in GitHub Container Registry.
+
+- **API:** https://geovision-api.politesky-a35ce14a.southafricanorth.azurecontainerapps.io
+- **Dashboard:** https://geovision-dashboard.politesky-a35ce14a.southafricanorth.azurecontainerapps.io
+- **API documentation:** https://geovision-api.politesky-a35ce14a.southafricanorth.azurecontainerapps.io/docs?utm_source=chatgpt.com#/default/get_retraining_status_retrain_status_get
+**Demo video:** ADD VIDEO LINK
+
+## 10. Conclusion
+
+GeoVision ML brings together machine learning, backend development, and cloud deployment to solve a real-world image classification problem. Through this project, we developed and evaluated deep learning models and built an application that allows users to interact with them.

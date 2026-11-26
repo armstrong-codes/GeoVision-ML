@@ -39,3 +39,11 @@ __pycache__/
 
 # Runtime logs
 results/prediction_logs.jsonl
+
+# Downloaded EuroSAT dataset
+data/EuroSAT_RGB/
+data/eurosat_download/
+data/EuroSAT_RGB.zip
+
+# Generated results
+results/
